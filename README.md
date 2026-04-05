@@ -256,11 +256,12 @@ curl -X POST http://localhost:5000/api/predict/upload \
 ---
 
 ## 🏫 About
-
+**Name**: Salman Khan
 **University**: Abdul Wali Khan University Mardan  
-**Course**: Artificial Intelligence (6th Semester)  
-**Project Type**: AI Portfolio / Research Demonstration
-
+**Course**: Artificial Intelligence 
+**Semester**: 6th Semester
+**Project Name**: Emotion Recognition System
+**Contributer**: Ihsan Ullah Mohmand
 ---
 
 ## 📄 License
