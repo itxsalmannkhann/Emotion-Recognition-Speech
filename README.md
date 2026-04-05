@@ -256,6 +256,7 @@ curl -X POST http://localhost:5000/api/predict/upload \
 ---
 
 ## 🏫 About
+
 **Name**: Salman Khan
 **University**: Abdul Wali Khan University Mardan  
 **Course**: Artificial Intelligence 
