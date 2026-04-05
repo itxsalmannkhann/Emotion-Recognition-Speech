@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoiceIQ — Emotion Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/main.css" />
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">VoiceIQ</span>
+      <span class="brand-badge">AI</span>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link active">Dashboard</a>
+      <a href="/upload" class="nav-link">Upload</a>
+      <a href="/realtime" class="nav-link">Live</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-pill">Real-time AI Speech Analysis</div>
+    <h1 class="hero-title">Understand the <em>emotion</em><br />behind every voice</h1>
+    <p class="hero-sub">Advanced LSTM neural network decodes emotion, gender, age, and speech patterns from any audio — in milliseconds.</p>
+    <div class="hero-actions">
+      <a href="upload.html" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Analyze Audio File
+      </a>
+      <a href="realtime.html" class="btn btn-outline">
+        <span class="live-dot"></span>
+        Start Live Detection
+      </a>
+    </div>
+  </div>
+  <!-- Animated waveform decoration -->
+  <div class="hero-wave" id="heroWave">
+    <canvas id="waveCanvas" width="600" height="100"></canvas>
+  </div>
+</section>
+
+<!-- ─── FEATURE CARDS ─────────────────────────── -->
+<section class="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Capabilities</span>
+      <h2 class="section-title">What VoiceIQ Detects</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card" data-index="0">
+        <div class="feature-icon" style="--accent:#f87171">😠</div>
+        <h3>Emotion Recognition</h3>
+        <p>Classifies 8 distinct emotional states: neutral, happy, sad, angry, fearful, surprised, calm, disgust.</p>
+        <div class="feature-tag">LSTM · Softmax</div>
+      </div>
+      <div class="feature-card" data-index="1">
+        <div class="feature-icon" style="--accent:#60a5fa">⚥</div>
+        <h3>Gender Detection</h3>
+        <p>Identifies speaker gender from fundamental pitch frequency and vocal tract characteristics.</p>
+        <div class="feature-tag">Pitch Analysis</div>
+      </div>
+      <div class="feature-card" data-index="2">
+        <div class="feature-icon" style="--accent:#a78bfa">🎂</div>
+        <h3>Age Estimation</h3>
+        <p>Estimates speaker age group (Child, Teen, Adult, Senior) using acoustic modeling.</p>
+        <div class="feature-tag">YIN Algorithm</div>
+      </div>
+      <div class="feature-card" data-index="3">
+        <div class="feature-icon" style="--accent:#34d399">📊</div>
+        <h3>Speech Attributes</h3>
+        <p>Measures energy level, speech tempo, confidence score, and pitch frequency in real time.</p>
+        <div class="feature-tag">Librosa · DSP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ──────────────────────────── -->
+<section class="pipeline">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Architecture</span>
+      <h2 class="section-title">ML Pipeline</h2>
+    </div>
+    <div class="pipeline-steps">
+      <div class="pipe-step">
+        <div class="pipe-num">01</div>
+        <h4>Audio Input</h4>
+        <p>Microphone or uploaded WAV/MP3 file</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-num">02</div>
+        <h4>Feature Extraction</h4>
+        <p>MFCC, Chroma, Mel Spectrogram, ZCR, Spectral Contrast</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-num">03</div>
+        <h4>LSTM Model</h4>
+        <p>2-layer LSTM with Dropout — trained on RAVDESS dataset</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-num">04</div>
+        <h4>Prediction</h4>
+        <p>Emotion + Gender + Age + Speech Attributes</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HISTORY PANEL ─────────────────────────── -->
+<section class="history-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Session</span>
+      <h2 class="section-title">Recent Predictions</h2>
+      <button class="btn-ghost" id="clearHistory">Clear All</button>
+    </div>
+    <div id="historyList" class="history-list">
+      <div class="history-empty">
+        <span>🎙️</span>
+        <p>No predictions yet — try uploading an audio file!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="brand-name">VoiceIQ</span>
+      <span class="footer-sub">Real-Time Emotion Recognition System · Built with TensorFlow + Flask</span>
+      <span class="footer-tag">Abdul Wali Khan University Mardan · AI Portfolio Project</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/static/js/main.js"></script>
+<script src="/static/js/waveform.js"></script>
+</body>
+</html>

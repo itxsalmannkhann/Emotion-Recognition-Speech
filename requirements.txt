@@ -1,0 +1,31 @@
+# VoiceIQ — Emotion Recognition from Speech
+# Requirements File
+# Compatible with Python 3.9+
+
+# ── Core ML / Audio ───────────────────────────
+tensorflow>=2.12.0
+keras>=2.12.0
+librosa>=0.10.1
+soundfile>=0.12.1
+numpy>=1.23.0
+pandas>=1.5.0
+scikit-learn>=1.2.0
+
+# ── Backend ───────────────────────────────────
+flask>=3.0.0
+flask-cors>=4.0.0
+werkzeug>=3.0.0
+gunicorn>=21.0.0
+
+# ── Audio (optional - for real-time CLI mode) ─
+# sounddevice>=0.4.6
+# pyaudio>=0.2.13
+
+# ── Data & Visualization ─────────────────────
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scipy>=1.10.0
+
+# ── Utilities ─────────────────────────────────
+tqdm>=4.65.0
+python-dotenv>=1.0.0

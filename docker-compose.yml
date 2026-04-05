@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  voiceiq:
+    build: .
+    container_name: voiceiq-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/voiceiq/models
+      - ./uploads:/voiceiq/uploads
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=change-this-in-production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

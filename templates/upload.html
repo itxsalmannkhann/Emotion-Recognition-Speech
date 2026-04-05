@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoiceIQ — Upload & Analyze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/main.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">VoiceIQ</span>
+      <span class="brand-badge">AI</span>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Dashboard</a>
+      <a href="/upload" class="nav-link active">Upload</a>
+      <a href="/realtime" class="nav-link">Live</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="orb orb-1" style="top:-50px;left:60%"></div>
+    <h1 class="page-title">Upload & Analyze</h1>
+    <p class="page-sub">Upload a WAV or MP3 file — our AI will decode the emotion in seconds.</p>
+  </div>
+</div>
+
+<main class="upload-main container">
+
+  <!-- DROP ZONE -->
+  <div class="drop-zone" id="dropZone">
+    <div class="drop-zone-inner" id="dropZoneInner">
+      <div class="drop-icon">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="32" fill="currentColor" opacity="0.06"/>
+          <path d="M32 44V28M22 34l10-10 10 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 44h24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="drop-title">Drag & drop audio file here</p>
+      <p class="drop-sub">or click to browse</p>
+      <div class="drop-formats">WAV · MP3 · OGG · FLAC · M4A</div>
+      <input type="file" id="audioInput" accept=".wav,.mp3,.ogg,.flac,.m4a" class="file-input" />
+    </div>
+    <div class="file-preview" id="filePreview" style="display:none">
+      <div class="file-info">
+        <span class="file-icon">🎵</span>
+        <div>
+          <p class="file-name" id="fileName"></p>
+          <p class="file-size" id="fileSize"></p>
+        </div>
+        <button class="remove-btn" id="removeFile" title="Remove file">✕</button>
+      </div>
+      <audio id="audioPlayer" controls class="audio-player"></audio>
+    </div>
+  </div>
+
+  <!-- ANALYZE BUTTON -->
+  <div class="analyze-bar">
+    <button class="btn btn-primary btn-large" id="analyzeBtn" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Analyze Audio
+    </button>
+  </div>
+
+  <!-- LOADING STATE -->
+  <div class="loading-overlay" id="loadingOverlay" style="display:none">
+    <div class="loading-card">
+      <div class="sound-bars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <p class="loading-title">Analyzing Audio...</p>
+      <p class="loading-sub" id="loadingStep">Extracting acoustic features</p>
+    </div>
+  </div>
+
+  <!-- RESULTS SECTION -->
+  <div class="results-section" id="resultsSection" style="display:none">
+
+    <!-- Primary emotion card -->
+    <div class="result-hero-card" id="emotionCard">
+      <div class="result-emoji" id="resultEmoji"></div>
+      <div class="result-emotion-label" id="resultEmotion"></div>
+      <div class="result-confidence">
+        <span id="resultConfidence"></span>% confidence
+      </div>
+      <div class="result-meta">
+        <span id="resultInferenceTime"></span>
+      </div>
+    </div>
+
+    <!-- Secondary cards row -->
+    <div class="result-cards-grid">
+      <!-- Gender -->
+      <div class="result-card" id="genderCard">
+        <div class="result-card-icon">⚥</div>
+        <div class="result-card-label">Gender</div>
+        <div class="result-card-value" id="resultGender">—</div>
+      </div>
+      <!-- Age Group -->
+      <div class="result-card" id="ageCard">
+        <div class="result-card-icon">🎂</div>
+        <div class="result-card-label">Age Group</div>
+        <div class="result-card-value" id="resultAge">—</div>
+      </div>
+      <!-- Energy -->
+      <div class="result-card" id="energyCard">
+        <div class="result-card-icon">⚡</div>
+        <div class="result-card-label">Energy Level</div>
+        <div class="result-card-value" id="resultEnergy">—</div>
+      </div>
+      <!-- Duration -->
+      <div class="result-card" id="durationCard">
+        <div class="result-card-icon">⏱️</div>
+        <div class="result-card-label">Duration</div>
+        <div class="result-card-value" id="resultDuration">—</div>
+      </div>
+    </div>
+
+    <!-- Waveform -->
+    <div class="glass-card">
+      <div class="card-header">
+        <h3>Audio Waveform</h3>
+      </div>
+      <canvas id="waveformChart" height="80"></canvas>
+    </div>
+
+    <!-- Emotion probabilities bar chart -->
+    <div class="glass-card">
+      <div class="card-header">
+        <h3>Emotion Probability Distribution</h3>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="emotionChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Speech attributes -->
+    <div class="glass-card">
+      <div class="card-header">
+        <h3>Speech Attributes</h3>
+      </div>
+      <div class="attrs-grid" id="attrsGrid"></div>
+    </div>
+
+    <!-- Download report button -->
+    <div class="download-bar">
+      <button class="btn btn-outline" id="downloadReport">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Report (JSON)
+      </button>
+      <button class="btn btn-ghost" id="analyzeAnother">Analyze Another</button>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="brand-name">VoiceIQ</span>
+      <span class="footer-sub">Real-Time Emotion Recognition · TensorFlow + Flask</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/static/js/main.js"></script>
+<script src="/static/js/upload.js"></script>
+</body>
+</html>
