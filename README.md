@@ -150,7 +150,7 @@ python app.py
 Open [http://localhost:5000](http://localhost:5000) in your browser.
 
 ### Troubleshooting
-If you encounter any issues during installation, ensure that your Python version is compatible with the project's requirements. You can check the Python version by running `python --version` in your terminal. Additionally, make sure to activate the virtual environment before installing dependencies.
+If you encounter any issues during installation, ensure that your Python version is compatible with the project's requirements. You can check the Python version by running `python --version` in your terminal. Additionally, make sure to activate the virtual environment before installing dependencies. If you are still experiencing issues, try updating your pip version by running `pip install --upgrade pip`. You can also try reinstalling the dependencies by running `pip install -r requirements.txt --force-reinstall`. If none of these steps resolve the issue, you can try checking the project's issue tracker for known issues or seeking help from the project's community.
 
 ---
 
