@@ -149,6 +149,9 @@ python app.py
 
 Open [http://localhost:5000](http://localhost:5000) in your browser.
 
+### Troubleshooting
+If you encounter any issues during installation, ensure that your Python version is compatible with the project's requirements. You can check the Python version by running `python --version` in your terminal. Additionally, make sure to activate the virtual environment before installing dependencies.
+
 ---
 
 ## 🐳 Docker Deployment
