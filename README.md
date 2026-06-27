@@ -164,6 +164,15 @@ Some specific error messages and their solutions include:
 - `Error: Module not found`: Try installing the missing module manually using pip.
 - `Error: Installation failed`: Try reinstalling the dependencies or checking the project's issue tracker for known issues.
 
+### Detailed Troubleshooting Steps
+1. **Check Python version**: Ensure that your Python version is compatible with the project's requirements by running `python --version` in your terminal.
+2. **Activate virtual environment**: Make sure to activate the virtual environment before installing dependencies by running `source venv/bin/activate` (macOS/Linux) or `venv\Scripts\activate` (Windows).
+3. **Update pip**: Try updating your pip version by running `pip install --upgrade pip`.
+4. **Reinstall dependencies**: Try reinstalling the dependencies by running `pip install -r requirements.txt --force-reinstall`.
+5. **Check package documentation**: Try checking the package documentation or searching for solutions online for package installation issues.
+6. **Verify system requirements**: Verify that your system meets the project's system requirements, such as having the necessary dependencies installed.
+7. **Check issue tracker**: Check the project's issue tracker for known issues or seek help from the project's community.
+
 ---
 
 ## 🐳 Docker Deployment
